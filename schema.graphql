@@ -1,0 +1,19 @@
+input CreateExpenseInput {
+  date: String!
+  value: Float!
+  category: String!
+}
+
+type CreateExpenseResponse {
+  date: String!
+  value: Float!
+  category: String!
+}
+
+type Mutation {
+  createExpense(input: CreateExpenseInput!): CreateExpenseResponse!
+}
+
+type Query {
+  hello: String
+}
