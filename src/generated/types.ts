@@ -18,6 +18,7 @@ export type CreateExpenseInput = {
   category: Scalars['String'];
   date: Scalars['String'];
   value: Scalars['Float'];
+  walletId?: InputMaybe<Scalars['String']>;
 };
 
 export type CreateExpenseResponse = {
@@ -25,16 +26,35 @@ export type CreateExpenseResponse = {
   category: Scalars['String'];
   date: Scalars['String'];
   value: Scalars['Float'];
+  walletId: Scalars['String'];
+};
+
+export type CreateWalletInput = {
+  currency: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type CreateWalletResponse = {
+  __typename?: 'CreateWalletResponse';
+  currency: Scalars['String'];
+  userId: Scalars['String'];
+  walletId: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createExpense: CreateExpenseResponse;
+  createWallet: CreateWalletResponse;
 };
 
 
 export type MutationCreateExpenseArgs = {
   input: CreateExpenseInput;
+};
+
+
+export type MutationCreateWalletArgs = {
+  input: CreateWalletInput;
 };
 
 export type Query = {
@@ -114,6 +134,8 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateExpenseInput: CreateExpenseInput;
   CreateExpenseResponse: ResolverTypeWrapper<CreateExpenseResponse>;
+  CreateWalletInput: CreateWalletInput;
+  CreateWalletResponse: ResolverTypeWrapper<CreateWalletResponse>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -125,6 +147,8 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   CreateExpenseInput: CreateExpenseInput;
   CreateExpenseResponse: CreateExpenseResponse;
+  CreateWalletInput: CreateWalletInput;
+  CreateWalletResponse: CreateWalletResponse;
   Float: Scalars['Float'];
   Mutation: {};
   Query: {};
@@ -135,11 +159,20 @@ export type CreateExpenseResponseResolvers<ContextType = any, ParentType extends
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  walletId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CreateWalletResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateWalletResponse'] = ResolversParentTypes['CreateWalletResponse']> = {
+  currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  walletId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createExpense?: Resolver<ResolversTypes['CreateExpenseResponse'], ParentType, ContextType, RequireFields<MutationCreateExpenseArgs, 'input'>>;
+  createWallet?: Resolver<ResolversTypes['CreateWalletResponse'], ParentType, ContextType, RequireFields<MutationCreateWalletArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -148,6 +181,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type Resolvers<ContextType = any> = {
   CreateExpenseResponse?: CreateExpenseResponseResolvers<ContextType>;
+  CreateWalletResponse?: CreateWalletResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

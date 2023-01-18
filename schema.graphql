@@ -1,16 +1,31 @@
 input CreateExpenseInput {
+  # use default walletId if not provided
+  walletId: String
   date: String!
   value: Float!
   category: String!
 }
 
 type CreateExpenseResponse {
+  walletId: String!
   date: String!
   value: Float!
   category: String!
 }
 
+input CreateWalletInput {
+  userId: String! # TODO infer from auth token
+  currency: String!
+}
+
+type CreateWalletResponse {
+  userId: String!
+  currency: String!
+  walletId: String!
+}
+
 type Mutation {
+  createWallet(input: CreateWalletInput!): CreateWalletResponse!
   createExpense(input: CreateExpenseInput!): CreateExpenseResponse!
 }
 

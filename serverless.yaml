@@ -6,10 +6,7 @@ provider:
     cors: true
 functions:
   graphql:
-    # Make sure your file path is correct!
-    # (e.g., if your file is in the root folder use server.graphqlHandler )
-    # The format is: <FILENAME>.<HANDLER>
-    handler: src/server.graphqlHandler # highlight-line
+    handler: src/server.graphqlHandler
     events:
       - httpApi:
           path: /
@@ -17,6 +14,35 @@ functions:
       - httpApi:
           path: /
           method: GET
-# Omit the following lines if you aren't using TS!
 plugins:
   - serverless-plugin-typescript
+resources:
+  Resources:
+    moneyTrackerWallets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: money-tracker-wallets
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: walletId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: walletId
+            KeyType: HASH
+    moneyTrackerExpenses:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: money-tracker-expenses
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: walletId
+            AttributeType: S
+          - AttributeName: date
+            AttributeType: S
+        KeySchema:
+          - AttributeName: walletId
+            KeyType: HASH
+          - AttributeName: date
+            KeyType: RANGE
